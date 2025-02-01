@@ -246,9 +246,16 @@ class SokobanGame {
   }
 }
 
+function preloadImage(url: string): void {
+  const img = new Image();
+  img.src = url;
+}
+
 let currentInstance: SokobanGame | undefined;
 document.addEventListener("DOMContentLoaded", () => {
   currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
+  preloadImage("./figure/box_on_goal.svg");
+  preloadImage("./figure/player_on_goal.svg");
 });
 
 const buttonList = document.querySelectorAll("[data-stage-id]") as NodeListOf<HTMLButtonElement>;

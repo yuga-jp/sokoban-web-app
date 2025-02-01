@@ -237,14 +237,20 @@ class SokobanGame {
         return new StateNode(nextBoxPos, nextPlayerPos, node);
     }
 }
+function preloadImage(url) {
+    const img = new Image();
+    img.src = url;
+}
 let currentInstance;
 document.addEventListener("DOMContentLoaded", () => {
     currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
+    preloadImage("./figure/box_on_goal.svg");
+    preloadImage("./figure/player_on_goal.svg");
 });
 const buttonList = document.querySelectorAll("[data-stage-id]");
 for (const button of Array.from(buttonList)) {
     button.addEventListener("click", () => {
-        currentInstance = null;
+        currentInstance = undefined;
         const stageId = button.dataset.stageId;
         switch (stageId) {
             case "1":
