@@ -199,8 +199,8 @@ class SokobanGame {
     movePlayer(pos) {
         if (this.canPlayerMove(this.watchingNode, pos)) {
             this.watchingNode = this.getNextNode(this.watchingNode, pos);
-            this.render();
         }
+        this.render();
     }
     isOutOfStage(pos) {
         return pos.x < 0 || pos.x >= defaultStageWidth || pos.y < 0 || pos.y >= defaultStageHeight;
@@ -244,14 +244,14 @@ document.addEventListener("DOMContentLoaded", () => {
 const buttonList = document.querySelectorAll("[data-stage-id]");
 for (const button of Array.from(buttonList)) {
     button.addEventListener("click", () => {
-        currentInstance = undefined;
+        currentInstance = null;
         const stageId = button.dataset.stageId;
         switch (stageId) {
             case "1":
                 currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
                 break;
             case "2":
-                currentInstance = new SokobanGame("......................|.............");
+                currentInstance = new SokobanGame("....#.....#...#.......|.............");
                 break;
         }
     });

@@ -204,8 +204,8 @@ class SokobanGame {
   private movePlayer(pos: Pos) {
     if (this.canPlayerMove(this.watchingNode, pos)) {
       this.watchingNode = this.getNextNode(this.watchingNode, pos);
-      this.render();
     }
+    this.render();
   }
 
   private isOutOfStage(pos: Pos): boolean {
@@ -261,7 +261,7 @@ for (const button of Array.from(buttonList)) {
         currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
         break;
       case "2":
-        currentInstance = new SokobanGame("......................|.............");
+        currentInstance = new SokobanGame("....#.....#...#.......|.............");
         break;
     }
   });
