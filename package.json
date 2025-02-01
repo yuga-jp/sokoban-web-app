@@ -1,0 +1,14 @@
+{
+  "name": "sokoban-web-app",
+  "version": "1.0.0",
+  "description": "A Sokoban game implemented in TypeScript for the web.",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "2.6.1",
+    "typescript": "5.7.3"
+  }
+}
