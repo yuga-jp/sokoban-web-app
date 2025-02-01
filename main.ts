@@ -268,7 +268,7 @@ for (const button of Array.from(buttonList)) {
         currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
         break;
       case "2":
-        currentInstance = new SokobanGame("....#.....#...#.......|.............");
+        currentInstance = new SokobanGame("..#o.....o..##.#.o.x...x..x#..|...##");
         break;
     }
   });
