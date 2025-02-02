@@ -72,6 +72,7 @@ class SokobanGame {
   private w: number = defaultStageWidth;
   private stage: Stage;
   private watchingNode: StateNode;
+  private moveCount: number = 0;
 
   constructor(stageString: string) {
     this.stageString = stageString;
@@ -81,6 +82,7 @@ class SokobanGame {
     this.render();
     this.keyEvent();
     this.playerMoveEvent();
+    this.updateCounter();
   }
 
   private getInitialStateNode(stageString: string): StateNode {
@@ -196,6 +198,8 @@ class SokobanGame {
         case "r":
           this.watchingNode = this.getInitialStateNode(this.stageString);
           this.render();
+          this.moveCount = 0;
+          this.updateCounter();
           break;
       }
     })
@@ -204,8 +208,17 @@ class SokobanGame {
   private movePlayer(pos: Pos) {
     if (this.canPlayerMove(this.watchingNode, pos)) {
       this.watchingNode = this.getNextNode(this.watchingNode, pos);
+      this.moveCount++;
     }
     this.render();
+    this.updateCounter();
+  }
+
+  private updateCounter() {
+    const counterElement = document.getElementById("counter");
+    if (counterElement) {
+      counterElement.textContent = `Moves: ${this.moveCount}`;
+    }
   }
 
   private isOutOfStage(pos: Pos): boolean {
@@ -268,11 +281,13 @@ for (const button of Array.from(buttonList)) {
         currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
         break;
       case "2":
-        currentInstance = new SokobanGame(".....o...................|ox.o..x.o.");
+        currentInstance = new SokobanGame(".....o...................|ox.x..x.o.");
         break;
       case "3":
         currentInstance = new SokobanGame("..#o.....o..##.#.o.x...x..x#..|...##");
         break;
     }
+    preloadImage("./figure/box_on_goal.svg");
+    preloadImage("./figure/player_on_goal.svg");
   });
 }

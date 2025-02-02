@@ -73,6 +73,7 @@ class SokobanGame {
     w = defaultStageWidth;
     stage;
     watchingNode;
+    moveCount = 0;
     constructor(stageString) {
         this.stageString = stageString;
         this.stage = Array.from({ length: this.h }, () => Array(this.w).fill(Tile.Path));
@@ -80,6 +81,7 @@ class SokobanGame {
         this.render();
         this.keyEvent();
         this.playerMoveEvent();
+        this.updateCounter();
     }
     getInitialStateNode(stageString) {
         let initialPlayerPos = new Pos(-1, -1);
@@ -192,6 +194,8 @@ class SokobanGame {
                 case "r":
                     this.watchingNode = this.getInitialStateNode(this.stageString);
                     this.render();
+                    this.moveCount = 0;
+                    this.updateCounter();
                     break;
             }
         });
@@ -199,8 +203,16 @@ class SokobanGame {
     movePlayer(pos) {
         if (this.canPlayerMove(this.watchingNode, pos)) {
             this.watchingNode = this.getNextNode(this.watchingNode, pos);
+            this.moveCount++;
         }
         this.render();
+        this.updateCounter();
+    }
+    updateCounter() {
+        const counterElement = document.getElementById("counter");
+        if (counterElement) {
+            counterElement.textContent = `Moves: ${this.moveCount}`;
+        }
     }
     isOutOfStage(pos) {
         return pos.x < 0 || pos.x >= defaultStageWidth || pos.y < 0 || pos.y >= defaultStageHeight;
@@ -257,11 +269,13 @@ for (const button of Array.from(buttonList)) {
                 currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......");
                 break;
             case "2":
-                currentInstance = new SokobanGame(".....o...................|ox.o..x.o.");
+                currentInstance = new SokobanGame(".....o...................|ox.x..x.o.");
                 break;
             case "3":
                 currentInstance = new SokobanGame("..#o.....o..##.#.o.x...x..x#..|...##");
                 break;
         }
+        preloadImage("./figure/box_on_goal.svg");
+        preloadImage("./figure/player_on_goal.svg");
     });
 }
