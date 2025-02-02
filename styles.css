@@ -16,6 +16,14 @@ body {
   gap: 0px;
 }
 
+h1 {
+  margin: 5px;
+}
+
+h2 {
+  margin: 5px;
+}
+
 img {
   position: absolute;
   width: 100px;
@@ -37,7 +45,7 @@ button {
 }
 
 #new-stage-button {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
