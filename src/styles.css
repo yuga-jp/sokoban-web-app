@@ -1,0 +1,63 @@
+body {
+  font-family: Arial, sans-serif;
+  width: 90vw;
+  height: 90vh;
+  align-content: center;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  text-align: center;
+  margin: 5px;
+}
+
+h2 {
+  text-align: center;
+  margin: 5px;
+}
+
+h3 {
+  text-align: center;
+}
+
+img {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+
+button {
+  font-size: 16px;
+  margin: 10px 20px 20px 20px;
+}
+
+.main {
+  display: block flex;
+  justify-content: center;
+  align-content: center;
+  gap: 60px;
+}
+
+.chart-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#game-container {
+  display: grid;
+  grid-template-columns: repeat(6, 80px);
+  grid-template-rows: repeat(6, 80px);
+  gap: 0px;
+}
+
+#stage-evaluation-chart {
+  width: 500px;
+  height: 100px;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
