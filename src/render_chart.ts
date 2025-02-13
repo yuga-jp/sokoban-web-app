@@ -3,7 +3,7 @@ import { Chart } from "chart.js/auto";
 import dataStageEvaluation from "assets/data/stage_evaluation.txt";
 import loadCSV from "src/api/load_csv";
 
-export default async function renderStageEvaluationChart(range: number): Promise<void> {
+export default async function renderStageEvaluationChart(range: number, onPointClick: (stageData: string) => void): Promise<void> {
   const rawData: [l: number, p: number, s: string][] = await loadCSV(dataStageEvaluation) as [number, number, string][];
   const data: [p: number, s: string][][] = Array.from({ length: 77 }, () => []);
   for (const [l, p, s] of rawData) {
@@ -23,14 +23,14 @@ export default async function renderStageEvaluationChart(range: number): Promise
     }
   }
 
-  new Chart(
+  const chart = new Chart(
     document.getElementById("stage-evaluation-chart") as HTMLCanvasElement,
     {
       type: "scatter",
       data: {
         datasets: [
           {
-            data: selectedData.map((row) => ({ x: row[0], y: row[1] }))
+            data: selectedData.map((row) => ({ x: row[0], y: row[1], stageData: row[2] }))
           }
         ]
       },
@@ -62,7 +62,14 @@ export default async function renderStageEvaluationChart(range: number): Promise
             display: false
           }
         },
-        clip: false
+        clip: false,
+        onClick: (_, elements) => {
+          if (elements.length > 0) {
+            const element = elements[0];
+            const stageData = chart.data.datasets[element.datasetIndex].data[element.index].stageData;
+            onPointClick(stageData);
+          }
+        }
       }
     });
 }

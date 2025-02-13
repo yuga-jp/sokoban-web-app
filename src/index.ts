@@ -7,5 +7,10 @@ const defaultStageWidth: number = 6;
 let currentInstance: SokobanGame | undefined;
 document.addEventListener("DOMContentLoaded", () => {
   currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......", defaultStageWidth, defaultStageHeight);
-  renderStageEvaluationChart(0.1);
+  renderStageEvaluationChart(0.1, (stageData) => {
+    if (currentInstance) {
+      currentInstance.abortController.abort();
+      currentInstance = new SokobanGame(stageData, defaultStageWidth, defaultStageHeight);
+    }
+  });
 });
