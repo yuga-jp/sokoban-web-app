@@ -4,23 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sokoban Game</title>
+  <title>倉庫番のステージの難易度定義</title>
 
   <link href="./src/styles.css" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Sokoban Game</h1>
+  <h2>教師あり学習のモデルによる倉庫番のステージの難易度定義</h2>
   <div class="main">
     <div class="chart-wrapper">
       <canvas id="stage-evaluation-chart"></canvas>
     </div>
     <div class="game-wrapper">
-      <h2 id="counter"></h2>
+      <h3 id="counter"></h3>
       <div id="game-container"></div>
-      <h3>Arrow Keys: move, r: reset</h3>
+      <h3>矢印キー: 移動, r: リセット</h3>
     </div>
   </div>
+  <p>教師あり学習のモデルを用いて、AIにとってのステージの難易度を定義した。</p>
+  <p>クリア確率が低いほど、難易度が高いことを示している。</p>
   <script src="dist/main.js"></script>
 </body>
 

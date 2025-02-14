@@ -18,6 +18,13 @@ h2 {
 
 h3 {
   text-align: center;
+  margin: 0px;
+}
+
+p {
+  text-align: center;
+  color: slategray;
+  margin: 0px;
 }
 
 img {
@@ -36,6 +43,7 @@ button {
   justify-content: center;
   align-content: center;
   gap: 60px;
+  margin: 10px 0px 10px 0px;
 }
 
 .chart-wrapper {

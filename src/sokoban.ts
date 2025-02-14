@@ -235,7 +235,7 @@ export default class SokobanGame {
   private updateCounter() {
     const counterElement = document.getElementById("counter");
     if (counterElement) {
-      counterElement.textContent = `Moves: ${this.moveCount}`;
+      counterElement.textContent = `移動回数: ${this.moveCount}`;
     }
   }
 

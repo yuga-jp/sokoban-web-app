@@ -63,8 +63,10 @@ export default async function renderStageEvaluationChart(range: number, onPointC
           }
         },
         clip: false,
-        onClick: (_, elements) => {
+        onClick: (_event, elements, _chart) => {
           if (elements.length > 0) {
+            console.log(elements);
+            console.log(chart);
             const element = elements[0];
             const stageData = chart.data.datasets[element.datasetIndex].data[element.index].stageData;
             onPointClick(stageData);
