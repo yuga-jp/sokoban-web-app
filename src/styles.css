@@ -1,7 +1,13 @@
+html {
+  display: flex;
+  height: 95vh;
+  justify-content: center;
+}
+
 body {
   font-family: Arial, sans-serif;
   width: 90vw;
-  height: 90vh;
+  align-self: center;
   align-content: center;
   background-color: #f0f0f0;
 }
