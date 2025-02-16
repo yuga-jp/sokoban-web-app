@@ -89,7 +89,7 @@ export default class SokobanGame {
     this.render();
     this.updateCounter();
 
-    document.addEventListener("keydown", (event) => this.keyBoardEvent(event), { signal: this.abortController.signal });
+    window.document.addEventListener("keydown", (event) => this.keyBoardEvent(event), { signal: this.abortController.signal });
   }
 
   private getStateNode(stageString: string): StateNode {
@@ -134,7 +134,7 @@ export default class SokobanGame {
   }
 
   private render() {
-    const gameContainer = document.getElementById("game-container");
+    const gameContainer = window.document.getElementById("game-container");
     if (!gameContainer) return;
 
     const stageView: Stage = Array.from({ length: this.h }, () => Array(this.w).fill(Tile.Path));
@@ -156,46 +156,82 @@ export default class SokobanGame {
       }
     }
 
-    gameContainer.replaceChildren();
-    for (let y = 0; y < this.h; y++) {
-      for (let x = 0; x < this.w; x++) {
-        const tile = document.createElement("div");
-        tile.classList.add("tile");
-
-        const img_base = document.createElement("img");
-        img_base.setAttribute("src", imgPath);
-
-        tile.appendChild(img_base);
-
-        const img_tile = document.createElement("img");
-        switch (stageView[y][x]) {
-          case Tile.Wall:
-            img_tile.setAttribute("src", imgWall);
+    if (gameContainer.children.length == this.w * this.h) {
+      const tiles = gameContainer.children;
+      for (let y = 0; y < this.h; y++) {
+        for (let x = 0; x < this.w; x++) {
+          const tile = tiles[y * this.w + x];
+          if (tile.children.length == 1) {
+            const img_tile = window.document.createElement("img");
             tile.appendChild(img_tile);
-            break;
-          case Tile.Goal:
-            img_tile.setAttribute("src", imgGoal);
-            tile.appendChild(img_tile);
-            break;
-          case Tile.Player:
-            img_tile.setAttribute("src", imgPlayer);
-            tile.appendChild(img_tile);
-            break;
-          case Tile.Box:
-            img_tile.setAttribute("src", imgBox);
-            tile.appendChild(img_tile);
-            break;
-          case Tile.PlayerOnGoal:
-            img_tile.setAttribute("src", imgPlayerOnGoal);
-            tile.appendChild(img_tile);
-            break;
-          case Tile.BoxOnGoal:
-            img_tile.setAttribute("src", imgBoxOnGoal);
-            tile.appendChild(img_tile);
-            break;
+          }
+          switch (stageView[y][x]) {
+            case Tile.Path:
+              tile.removeChild(tile.children[1]);
+              break;
+            case Tile.Wall:
+              tile.children[1].setAttribute("src", imgWall);
+              break;
+            case Tile.Goal:
+              tile.children[1].setAttribute("src", imgGoal);
+              break;
+            case Tile.Player:
+              tile.children[1].setAttribute("src", imgPlayer);
+              break;
+            case Tile.Box:
+              tile.children[1].setAttribute("src", imgBox);
+              break;
+            case Tile.PlayerOnGoal:
+              tile.children[1].setAttribute("src", imgPlayerOnGoal);
+              break;
+            case Tile.BoxOnGoal:
+              tile.children[1].setAttribute("src", imgBoxOnGoal);
+              break;
+          }
         }
+      }
+    } else {
+      gameContainer.replaceChildren();
+      for (let y = 0; y < this.h; y++) {
+        for (let x = 0; x < this.w; x++) {
+          const tile = window.document.createElement("div");
+          tile.classList.add("tile");
 
-        gameContainer.appendChild(tile);
+          const img_base = window.document.createElement("img");
+          img_base.setAttribute("src", imgPath);
+
+          tile.appendChild(img_base);
+
+          const img_tile = window.document.createElement("img");
+          switch (stageView[y][x]) {
+            case Tile.Wall:
+              img_tile.setAttribute("src", imgWall);
+              tile.appendChild(img_tile);
+              break;
+            case Tile.Goal:
+              img_tile.setAttribute("src", imgGoal);
+              tile.appendChild(img_tile);
+              break;
+            case Tile.Player:
+              img_tile.setAttribute("src", imgPlayer);
+              tile.appendChild(img_tile);
+              break;
+            case Tile.Box:
+              img_tile.setAttribute("src", imgBox);
+              tile.appendChild(img_tile);
+              break;
+            case Tile.PlayerOnGoal:
+              img_tile.setAttribute("src", imgPlayerOnGoal);
+              tile.appendChild(img_tile);
+              break;
+            case Tile.BoxOnGoal:
+              img_tile.setAttribute("src", imgBoxOnGoal);
+              tile.appendChild(img_tile);
+              break;
+          }
+
+          gameContainer.appendChild(tile);
+        }
       }
     }
   }
@@ -233,7 +269,7 @@ export default class SokobanGame {
   }
 
   private updateCounter() {
-    const counterElement = document.getElementById("counter");
+    const counterElement = window.document.getElementById("counter");
     if (counterElement) {
       counterElement.textContent = `移動回数: ${this.moveCount}`;
     }
