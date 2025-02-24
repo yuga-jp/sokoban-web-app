@@ -53,7 +53,7 @@ export default async function renderStageEvaluationChart(range: number, onPointC
             },
             title: {
               display: true,
-              text: "モデルによるクリア確率"
+              text: "モデルによるクリア率"
             }
           },
         },
