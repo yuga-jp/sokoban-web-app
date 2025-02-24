@@ -1,5 +1,6 @@
 import preload from "src/api/preload";
 import renderStageEvaluationChart from "src/render_chart";
+import renderStageInfo from "src/render_stage_info";
 import SokobanGame from "src/sokoban";
 
 import imgPath from "assets/image/path.svg";
@@ -17,10 +18,11 @@ let currentInstance: SokobanGame | undefined;
 window.document.addEventListener("DOMContentLoaded", () => {
   preload([imgPath, imgWall, imgGoal, imgPlayer, imgBox, imgPlayerOnGoal, imgBoxOnGoal]);
   currentInstance = new SokobanGame(".o....o.x.#...#xxo.|..#......#......", defaultStageWidth, defaultStageHeight);
-  renderStageEvaluationChart(0.1, (stageData) => {
+  renderStageEvaluationChart(0.1, (stage) => {
     if (currentInstance) {
       currentInstance.abortController.abort();
-      currentInstance = new SokobanGame(stageData, defaultStageWidth, defaultStageHeight);
+      currentInstance = new SokobanGame(stage.stageData, defaultStageWidth, defaultStageHeight);
+      renderStageInfo(stage.x, stage.y);
     }
   });
 });

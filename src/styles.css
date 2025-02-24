@@ -52,9 +52,9 @@ button {
   margin: 10px 0px 10px 0px;
 }
 
-.chart-wrapper {
-  display: flex;
-  align-items: center;
+#chart-wrapper {
+  display: grid;
+  align-content: center;
 }
 
 #game-container {

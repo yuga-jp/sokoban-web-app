@@ -3,7 +3,7 @@ import { Chart } from "chart.js/auto";
 import dataStageEvaluation from "assets/data/stage_evaluation.txt";
 import loadCSV from "src/api/load_csv";
 
-export default async function renderStageEvaluationChart(range: number, onPointClick: (stageData: string) => void): Promise<void> {
+export default async function renderStageEvaluationChart(range: number, onPointClick: (stage: { x: number; y: number; stageData: string; }) => void): Promise<void> {
   const rawData: [l: number, p: number, s: string][] = await loadCSV(dataStageEvaluation) as [number, number, string][];
   const data: [p: number, s: string][][] = Array.from({ length: 77 }, () => []);
   for (const [l, p, s] of rawData) {
@@ -30,7 +30,7 @@ export default async function renderStageEvaluationChart(range: number, onPointC
       data: {
         datasets: [
           {
-            data: selectedData.map((row) => ({ x: row[0], y: row[1], stageData: row[2] }))
+            data: selectedData.map((row) => ({ x: row[0], y: row[1], stageData: row[2] })),
           }
         ]
       },
@@ -57,19 +57,31 @@ export default async function renderStageEvaluationChart(range: number, onPointC
             }
           },
         },
+        elements: {
+          point: {
+            radius: 3,
+            hoverRadius: 6
+          }
+        },
         plugins: {
           legend: {
             display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return [`ステージの最小手数: ${context.parsed.x}`, `モデルによるクリア率: ${context.parsed.y}`];
+              }
+            },
+            displayColors: false
           }
         },
         clip: false,
         onClick: (_event, elements, _chart) => {
           if (elements.length > 0) {
-            console.log(elements);
-            console.log(chart);
             const element = elements[0];
-            const stageData = chart.data.datasets[element.datasetIndex].data[element.index].stageData;
-            onPointClick(stageData);
+            const stage = chart.data.datasets[element.datasetIndex].data[element.index];
+            onPointClick(stage);
           }
         }
       }
