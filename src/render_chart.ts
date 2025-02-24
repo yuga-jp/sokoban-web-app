@@ -1,7 +1,9 @@
-import { Chart } from "chart.js/auto";
+import { Chart, Colors, ScatterController, LinearScale, PointElement, Tooltip } from "chart.js";
 
 import dataStageEvaluation from "assets/data/stage_evaluation.txt";
 import loadCSV from "src/api/load_csv";
+
+Chart.register(Colors, ScatterController, LinearScale, PointElement, Tooltip);
 
 export default async function renderStageEvaluationChart(range: number, onPointClick: (stage: { x: number; y: number; stageData: string; }) => void): Promise<void> {
   const rawData: [l: number, p: number, s: string][] = await loadCSV(dataStageEvaluation) as [number, number, string][];
